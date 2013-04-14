@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+NFOLDS=8
+
+op='=='
+n="$1"
+
+# Handle folds negated with `~'.
+[[ "$n" == ~* ]] && op='!='
+n="${n##\~}"
+
+if [ "$n" -ge "$NFOLDS" ]
+then
+  echo "${0##*/}: Fold out of range: $n" 1>&2
+  exit 1
+fi
+
+find data/svg/ -type f -name *.svg \
+  | sort -n -t '/' -k 4 \
+  | awk "(NR - 1) % $NFOLDS $op $n { print; }"

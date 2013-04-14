@@ -1,0 +1,50 @@
+#!/bin/sh
+
+set -e
+
+# Default arguments
+vocab='data/vocab.out'
+map='data/map_id_label.txt'
+classifier='ova'
+cats='data/cats.out'
+fold='0'
+
+# Process the command-line arguments.
+while [ $# -gt 0 ]
+do
+  case "$1" in
+    -v)
+      vocab="$2"
+      shift
+      ;;
+    -m)
+      map="$2"
+      shift
+      ;;
+    -c)
+      classifier="$2"
+      shift
+      ;;
+    --fold)
+      fold="$2"
+      shift
+      ;;
+    -*)
+      echo "${0##*/}: Unrecognized option: \`$1'" 1>&2
+      exit 1
+      ;;
+    *)
+      break
+      ;;
+  esac
+  shift
+done
+
+[ $# -gt 0 ] && cats="$1"
+
+util/data-fold "$fold" |
+  build/src/classify \
+    -v "$vocab" \
+    -m "$map" \
+    -c "$classifier" \
+    "$cats"

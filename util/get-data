@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+ZIP='sketches_svg.zip'
+URL="http://cybertron.cg.tu-berlin.de/eitz/projects/classifysketch/$ZIP"
+
+SHA1="$ZIP.sha1"
+
+pushd data
+wget "$URL"
+sha1sum -c "$SHA1"
+unzip -q "$ZIP"
+rm "$ZIP"
+popd

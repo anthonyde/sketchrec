@@ -1,0 +1,32 @@
+#!/bin/sh
+
+set -e
+
+# Default arguments
+n=1000000
+vocab='data/vocab.out'
+
+# Process the command-line arguments.
+while [ $# -gt 0 ]
+do
+  case "$1" in
+    -n)
+      n="$2"
+      shift
+      ;;
+    -*)
+      echo "${0##*/}: Unrecognized option: \`$1'" 1>&2
+      exit 1
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
+[ $# -gt 0 ] && vocab="$1"
+
+find data/svg/ -type f -name *.svg |
+  build/src/vocab \
+    -n "$n" \
+    "$vocab"
