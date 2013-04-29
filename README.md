@@ -28,12 +28,15 @@ The following libraries must also be installed before compiling:
 
   * [fftw] [5] (>= 3.0, configured with single precision support)
 
-  * [librsvg] [6] (>= 2.0)
+  * [gtkmm] [6] (>= 2.24)
+
+  * [librsvg] [7] (>= 2.0)
 
 [3]: http://cairographics.org/
 [4]: http://dlib.net/
 [5]: http://fftw.org/
-[6]: https://live.gnome.org/LibRsvg
+[6]: http://gtkmm.org/
+[7]: https://live.gnome.org/LibRsvg
 
 ### Compiling
 
@@ -63,9 +66,9 @@ Run `util/get-data` from the root directory to automatically download the
 sketch dataset into the data directory.  The dataset can also be downloaded
 manually from the following link:
 
-[Sketch dataset (SVG)] [7] (zip, ~50 MB)
+[Sketch dataset (SVG)] [8] (zip, ~50 MB)
 
-[7]: http://cybertron.cg.tu-berlin.de/eitz/projects/classifysketch/sketches_svg.zip
+[8]: http://cybertron.cg.tu-berlin.de/eitz/projects/classifysketch/sketches_svg.zip
 
 ## Running
 
@@ -162,6 +165,11 @@ omitted.
     The default values for each argument are the same as above.  The same
     classifier type must be selected for both training and classification,
     since this information is currently not stored with the classifier.
+
+  * `gui [-v vocab-file] [-m map-file] [-c classifier] [cats-file]`
+
+    Run a GUI that classifies user sketches in real time.  The command-line
+    arguments this program accepts are the same as above.
 
 ## License
 
