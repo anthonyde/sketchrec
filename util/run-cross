@@ -1,0 +1,51 @@
+#!/bin/sh
+
+set -e
+
+# Default arguments
+folds=8
+vocab='data/vocab.out'
+map='data/map_id_label.txt'
+classifier='ova'
+conf='data/conf.out'
+
+# Process the command-line arguments.
+while [ $# -gt 0 ]
+do
+  case "$1" in
+    -f)
+      folds="$2"
+      shift
+      ;;
+    -v)
+      vocab="$2"
+      shift
+      ;;
+    -m)
+      map="$2"
+      shift
+      ;;
+    -c)
+      classifier="$2"
+      shift
+      ;;
+    -*)
+      echo "${0##*/}: Unrecognized option: \`$1'" 1>&2
+      exit 1
+      ;;
+    *)
+      break
+      ;;
+  esac
+  shift
+done
+
+[ $# -gt 0 ] && conf="$1"
+
+find data/svg/ -type f -name '*.svg' |
+  build/src/cross \
+    -f "$folds" \
+    -v "$vocab" \
+    -m "$map" \
+    -c "$classifier" \
+    "$conf"

@@ -166,6 +166,11 @@ omitted.
     classifier type must be selected for both training and classification,
     since this information is currently not stored with the classifier.
 
+  * `cross [-f folds] [-v vocab-file] [-m map-file] [-c classifier] [conf-file]`
+
+    Run cross-validation using the given number of folds, writing the
+    confusion matrix to `conf-file` (default: `conf.out`).
+
   * `gui [-v vocab-file] [-m map-file] [-c classifier] [cats-file]`
 
     Run a GUI that classifies user sketches in real time.  The command-line
