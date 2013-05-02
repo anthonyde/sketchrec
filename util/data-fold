@@ -17,6 +17,6 @@ then
   exit 1
 fi
 
-find data/svg/ -type f -name *.svg \
+find data/svg/ -type f -name '*.svg' \
   | sort -n -t '/' -k 4 \
   | awk "(NR - 1) % $NFOLDS $op $n { print; }"

@@ -26,7 +26,7 @@ done
 
 [ $# -gt 0 ] && vocab="$1"
 
-find data/svg/ -type f -name *.svg |
+find data/svg/ -type f -name '*.svg' |
   build/src/vocab \
     -n "$n" \
     "$vocab"
