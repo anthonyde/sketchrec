@@ -67,8 +67,10 @@ struct feature_desc_extractor {
     // Limit the orientation range to [0, pi).
     for (long j = 0; j < N; ++j) {
       for (long i = 0; i < N; ++i) {
-        if (o(j, i) >= M_PI)
-          o(j, i) = M_PI - o(j, i);
+        if (o(j, i) < 0)
+          o(j, i) += M_PI;
+        else if (o(j, i) >= M_PI)
+          o(j, i) -= M_PI;
       }
     }
 
