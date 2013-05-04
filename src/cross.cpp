@@ -21,6 +21,8 @@ int main(int argc, char *argv[]) {
   const char *map_path = "map_id_label.txt";
   const char *conf_path = "conf.out";
   bool ova = true;
+  typename kernel_type::scalar_type gamma = 17.8;
+  typename kernel_type::scalar_type c = 3.2;
 
   {
     int i;
@@ -52,6 +54,16 @@ int main(int argc, char *argv[]) {
             << "'\n";
           goto err;
         }
+      }
+      else if (!strcmp(argv[i], "-g")) {
+        std::istringstream ss(argv[++i]);
+        if (!(ss >> gamma))
+          goto usage;
+      }
+      else if (!strcmp(argv[i], "-C")) {
+        std::istringstream ss(argv[++i]);
+        if (!(ss >> c))
+          goto usage;
       }
       else {
         break;
@@ -148,8 +160,8 @@ int main(int argc, char *argv[]) {
 
     // Train a multi-class classifier.
     trainer_type rbf_trainer;
-    rbf_trainer.set_kernel(kernel_type(17.8));
-    rbf_trainer.set_c(3.2);
+    rbf_trainer.set_kernel(kernel_type(gamma));
+    rbf_trainer.set_c(c);
 
     dlib::matrix< double > conf;
     if (ova) {
@@ -182,8 +194,8 @@ int main(int argc, char *argv[]) {
   return 0;
 
 usage:
-  std::cerr << "Usage: " << argv[0] << " [-f folds] [-v vocab-file] "
-    "[-m map-file] [-c classifier] [conf-file]\n";
+  std::cerr << "Usage: " << argv[0] << " [-f folds] [-v vocab-file]"
+    " [-m map-file] [-c classifier] [-g gamma] [-C C] [conf-file]\n";
 err:
   return 1;
 }

@@ -6,6 +6,8 @@ set -e
 vocab='data/vocab.out'
 map='data/map_id_label.txt'
 classifier='ova'
+gamma='17.8'
+C='3.2'
 cats='data/cats.out'
 fold='~0'
 
@@ -23,6 +25,14 @@ do
       ;;
     -c)
       classifier="$2"
+      shift
+      ;;
+    -g)
+      gamma="$2"
+      shift
+      ;;
+    -C)
+      C="$2"
       shift
       ;;
     --fold)
@@ -47,4 +57,6 @@ util/data-fold "$fold" |
     -v "$vocab" \
     -m "$map" \
     -c "$classifier" \
+    -g "$gamma" \
+    -C "$C" \
     "$cats"

@@ -146,7 +146,7 @@ omitted.
     this dataset and clustered into 500 visual words.  The resulting
     vocabulary is written to `vocab-file` (default: `vocab.out`).
 
-  * `cats [-v vocab-file] [-m map-file] [-c classifier] [cats-file]`
+  * `cats [-v vocab-file] [-m map-file] [-c classifier] [-g gamma] [-C C] [cats-file]`
 
     Train a classifier with the images specified on standard input, one path
     per line.  The name of the subdirectory containing each image is used as
@@ -155,8 +155,9 @@ omitted.
     category labels and numeric identifiers is read from `map-file` (default:
     `map_id_label.txt`).  Two types of classifiers are currently supported,
     one-vs-all (`ova`) and one-vs-one (`ovo`).  `classifier` (default: `ova`)
-    must be one of these two values.  The resulting classifier is written to
-    `cats-file` (default: `cats.out`).
+    must be one of these two values.  `gamma` and `C` are the SVM parameters
+    (default: 17.8 and 3.2 respectively).  The resulting classifier is written
+    to `cats-file` (default: `cats.out`).
 
   * `classify [-v vocab-file] [-m map-file] [-c classifier] [cats-file]`
 
@@ -166,7 +167,7 @@ omitted.
     classifier type must be selected for both training and classification,
     since this information is currently not stored with the classifier.
 
-  * `cross [-f folds] [-v vocab-file] [-m map-file] [-c classifier] [conf-file]`
+  * `cross [-f folds] [-v vocab-file] [-m map-file] [-c classifier] [-g gamma] [-C C] [conf-file]`
 
     Run cross-validation using the given number of folds, writing the
     confusion matrix to `conf-file` (default: `conf.out`).
